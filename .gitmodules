@@ -1,0 +1,9 @@
+[submodule "MTS-ESP"]
+	path = MTS-ESP
+	url = https://github.com/ODDSound/MTS-ESP.git
+[submodule "tuning-library"]
+	path = tuning-library
+	url = https://github.com/surge-synthesizer/tuning-library.git
+[submodule "dpf"]
+	path = dpf
+	url = https://github.com/DISTRHO/DPF.git
