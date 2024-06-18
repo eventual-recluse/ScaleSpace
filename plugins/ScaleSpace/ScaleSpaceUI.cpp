@@ -460,7 +460,7 @@ protected:
             
             ImGui::BeginChild("middle pane", ImVec2(UI_COLUMN_WIDTH * 1.5f, 0));
             
-			if (ImWidgets::Slider2DFloat("", &fParameters[kParameterX], &fParameters[kParameterY], controlLimits[kParameterX].first, controlLimits[kParameterX].second, controlLimits[kParameterY].first, controlLimits[kParameterY].second, 1.0f))
+			if (ImWidgets::Slider2DFloat(" ", &fParameters[kParameterX], &fParameters[kParameterY], controlLimits[kParameterX].first, controlLimits[kParameterX].second, controlLimits[kParameterY].first, controlLimits[kParameterY].second, 1.0f))
 		    {
 				if (ImGui::IsItemActivated())
                     editParameter(kParameterX, true);

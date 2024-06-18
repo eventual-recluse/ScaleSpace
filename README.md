@@ -10,44 +10,6 @@ Each of the four scales can be set by loading a either a Scala scale file (.scl)
 
 The four corners of the XY slider represent each of the four scales, for example, moving the slider to the top left corner will set the current scale to Scale 1, and moving it to the bottom right corner will set the current scale to Scale 4. Different positions within the square will set the current scale to a different weighted average of the four scales.
 
-# Build instructions
-
-## Build Instructions: Ubuntu
-Install dependencies, clone this repository, enter the cloned repository, then make.
-```
-sudo apt-get install build-essential git pkg-config freeglut3-dev
-git clone --recursive https://github.com/eventual-recluse/ScaleSpace.git
-cd ScaleSpace
-make
-```
-After building, the plugins can be found in the 'bin' folder.
-
-## Build Instructions: Windows.
-ScaleSpace can be built using [msys2](https://www.msys2.org/)
-After installing msys2, launch the MinGW64 shell and enter the following commands to install dependencies, clone this repository, enter the cloned repository, then make.
-```
-pacman -S base-devel git mingw-w64-x86_64-gcc mingw-w64-x86_64-freeglut
-git clone --recursive https://github.com/eventual-recluse/ScaleSpace.git
-cd ScaleSpace
-make
-```
-After building, the plugins can be found in the 'bin' folder.
-
-## Building on macOS.
-ScaleSpace can be built on macOS using the Xcode Command Line Tools.
-
-Install Xcode Command Line Tools from the Terminal:
-```
-xcode-select --install
-```
-Then enter the following commands in the Terminal to clone this repository, enter the cloned repository, then make.
-```
-git clone --recursive https://github.com/eventual-recluse/ScaleSpace.git
-cd ScaleSpace
-make
-```
-After building, the plugins can be found in the 'bin' folder.
-
 # Credits
 [DISTRHO Plugin Framework.](https://github.com/DISTRHO/DPF) ISC license.
 
