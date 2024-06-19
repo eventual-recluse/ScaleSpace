@@ -2,7 +2,7 @@
 
 ScaleSpace is a prototype [MTS-ESP](https://github.com/ODDSound/MTS-ESP) master plugin, which allows the dynamic manipulation of the current scale by using an XY slider to explore the 'scale space' between four scales.
 
-![ScaleSpace](https://github.com/eventual-recluse/ScaleSpace/blob/main/plugins/ScaleSpace/ScaleSpace_screenshot.png "ScaleSpace")<br/>
+![ScaleSpace](https://raw.githubusercontent.com/eventual-recluse/ScaleSpace/main/plugins/ScaleSpace/ScaleSpace_screenshot.png "ScaleSpace")<br/>
 
 # Settings
 
