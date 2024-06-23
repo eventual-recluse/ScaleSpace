@@ -22,6 +22,10 @@
 #define DISTRHO_PLUGIN_URI   "https://github.com/eventual-recluse/ScaleSpace"
 #define DISTRHO_PLUGIN_CLAP_ID "ScaleSpace.eventual-recluse"
 
+#define DISTRHO_PLUGIN_LV2_CATEGORY "lv2:InstrumentPlugin"
+#define DISTRHO_PLUGIN_VST3_CATEGORIES "Instrument"
+#define DISTRHO_PLUGIN_CLAP_FEATURES "instrument"
+
 #define DISTRHO_PLUGIN_HAS_UI          1
 #define DISTRHO_UI_USE_CUSTOM          1
 #define DISTRHO_UI_CUSTOM_INCLUDE_PATH "DearImGui.hpp"
@@ -32,8 +36,6 @@
 #define DISTRHO_PLUGIN_IS_RT_SAFE      1
 #define DISTRHO_PLUGIN_NUM_INPUTS      0
 #define DISTRHO_PLUGIN_NUM_OUTPUTS     0
-#define DISTRHO_PLUGIN_WANT_MIDI_INPUT 1
-#define DISTRHO_PLUGIN_WANT_MIDI_OUTPUT 1
 #define DISTRHO_PLUGIN_WANT_STATE      1
 #define DISTRHO_UI_FILE_BROWSER        1
 #define DISTRHO_UI_USER_RESIZABLE      1

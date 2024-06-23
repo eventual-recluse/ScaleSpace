@@ -411,15 +411,9 @@ protected:
       Run/process function for plugins without MIDI input.
       @note Some parameters might be null if there are no audio inputs or outputs.
     */
-    void run(const float** inputs, float** outputs, uint32_t frames, const MidiEvent* midiEvents, uint32_t midiEventCount) override
+    void run(const float** inputs, float** outputs, uint32_t frames) override
     {
-		
-		for (uint32_t currentMidiEvent = 0; currentMidiEvent < midiEventCount; ++currentMidiEvent)
-		{
-			// Pass all MIDI events through
-			writeMidiEvent(midiEvents[currentMidiEvent]);
-		}
-		
+			
 		// Calculated weighted average of the four scales, and set target frequencies 
 		
 		double freq_increment[128];

@@ -87,6 +87,9 @@ public:
         ImGuiIO& io = ImGui::GetIO();
         io.Fonts->Clear();
         
+        show_error_popup = false;
+        errorText.clear();
+        
         lektonRegularFont = AddLektonRegularFont(scale_factor);
         brunoAceFont = AddBrunoAceFont(scale_factor);
         brunoAceSCFont = AddBrunoAceSCFont(scale_factor);
@@ -268,6 +271,9 @@ protected:
                 String noKbm("Standard KBM mapping");
                 fFileBaseName[stateId] = noScl;
                 fFileBaseName[stateId+4] = noKbm;
+                String tuningError(e.what());
+                errorText = "Tuning error:\n" + tuningError + "\nScale reset to standard tuning and mapping.";
+                show_error_popup = true;
                 //d_stdout("UI:");
                 //d_stdout(e.what());
 			}
@@ -278,6 +284,13 @@ protected:
 			tn = Tunings::Tuning(s, k);
 			String noScl("Standard SCL tuning");
 			fFileBaseName[stateId] = noScl;
+			
+			if (filename.isNotEmpty())
+			{
+				errorText = "Not a .scl file.\nSCL tuning reset to standard.";
+				show_error_popup = true;
+				setState(kStateKeys[stateId], "");
+			}
 		}
 	}
 	
@@ -301,6 +314,9 @@ protected:
                 String noKbm("Standard KBM mapping");
                 fFileBaseName[stateId - 4] = noScl;
                 fFileBaseName[stateId] = noKbm;
+                String tuningError(e.what());
+                errorText = "Tuning error:\n" + tuningError + "\nScale reset to standard tuning and mapping.";
+                show_error_popup = true;
                 //d_stdout("UI:");
                 //d_stdout(e.what());
 			}
@@ -312,6 +328,12 @@ protected:
 			String noKbm("Standard KBM mapping");
 			fFileBaseName[stateId] = noKbm;
 			
+			if (filename.isNotEmpty())
+			{
+				errorText = "Not a .kbm file.\nKBM mapping reset to standard.";
+				show_error_popup = true;
+				setState(kStateKeys[stateId], "");
+			}
 		}
 	}
 	
@@ -558,8 +580,18 @@ protected:
             
             ImGui::EndChild(); // top pane
             
+            // Error popup
+			if (show_error_popup)
+				ImGui::OpenPopup("error_popup");
+			if (ImGui::BeginPopup("error_popup"))
+			{
+				ImGui::PushFont(lektonRegularFont);
+				ImGui::Text(errorText);
+				ImGui::PopFont();
+				show_error_popup = false;
+				ImGui::EndPopup();
+			}
             
-                       
 		}
 		ImGui::End();
     }
@@ -584,7 +616,9 @@ private:
     ImFont* brunoAceFont;
     ImFont* brunoAceSCFont;
 	ImFont* lektonRegularFont;
-
+	
+	bool show_error_popup;
+    String errorText;
 
     DISTRHO_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ScaleSpaceUI)
 };

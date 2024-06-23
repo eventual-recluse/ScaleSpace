@@ -10,6 +10,15 @@ Each of the four scales can be set by loading a either a Scala scale file (.scl)
 
 The four corners of the XY slider represent each of the four scales, for example, moving the slider to the top left corner will set the current scale to Scale 1, and moving it to the bottom right corner will set the current scale to Scale 4. Different positions within the square will set the current scale to a different weighted average of the four scales.
 
+To use this plugin, you will need Scala scale files (.scl) and / or keymapping files (.kbm).
+
+There is a large collection of .scl files at the [Scala Scale Archive.](https://huygens-fokker.org/microtonality/scales.html)
+
+A collection of .scl and .kbm files can be found in the [Sevish Tuning Pack.](https://sevish.com/music-resources/#tuning-files)
+
+# Builds
+Builds can be found at [Scale-Plugin-Builds.](https://github.com/eventual-recluse/Scale-Plugin-Builds)
+
 # Credits
 [DISTRHO Plugin Framework.](https://github.com/DISTRHO/DPF) ISC license.
 
