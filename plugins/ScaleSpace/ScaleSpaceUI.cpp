@@ -273,6 +273,8 @@ protected:
                 fFileBaseName[stateId+4] = noKbm;
                 String tuningError(e.what());
                 errorText = "Tuning error:\n" + tuningError + "\nScale reset to standard tuning and mapping.";
+                setState(kStateKeys[stateId], "");
+				setState(kStateKeys[stateId+4], "");
                 show_error_popup = true;
                 //d_stdout("UI:");
                 //d_stdout(e.what());
@@ -316,6 +318,8 @@ protected:
                 fFileBaseName[stateId] = noKbm;
                 String tuningError(e.what());
                 errorText = "Tuning error:\n" + tuningError + "\nScale reset to standard tuning and mapping.";
+                setState(kStateKeys[stateId], "");
+				setState(kStateKeys[stateId-4], "");
                 show_error_popup = true;
                 //d_stdout("UI:");
                 //d_stdout(e.what());
@@ -347,28 +351,6 @@ protected:
         return baseName;
     }
     
-    void clearIncompatibleSclKbmStates(uint32_t i)
-    {
-
-		if( (fState[i].endsWith(".scl")) and (fState[i+4].endsWith(".kbm")) )
-		{
-			//d_stdout("ScaleSpace: Checking for incompatible scl kbm pairs");
-			try
-			{
-				auto s = Tunings::readSCLFile(fState[i].buffer());
-				auto k = Tunings::readKBMFile(fState[i+4].buffer());
-				Tunings::Tuning testTuning = Tunings::Tuning(s, k);
-			}
-			catch (const std::exception& e)
-			{
-				d_stdout("ScaleSpace: Looks like an incompatible scl kbm pair. Scale %li. States %li & %li", i+1, i, i+4);
-				setState(kStateKeys[i], "");
-				setState(kStateKeys[i+4], "");
-			}
-		}
-	
-	}
-	
     // ----------------------------------------------------------------------------------------------------------------
     // Widget Callbacks
 
@@ -415,14 +397,12 @@ protected:
 			if (ImGui::Button("Open SCL File##1"))
 			{
 				requestStateFile(kStateKeys[kStateFileSCL1]);
-				clearIncompatibleSclKbmStates(0);
 			}
 			
 			
 			if (ImGui::Button("Open KBM File##1"))
 			{
 				requestStateFile(kStateKeys[kStateFileKBM1]);
-				clearIncompatibleSclKbmStates(0);
 			}
 			
 			ImGui::PushItemWidth(-1);
@@ -451,14 +431,12 @@ protected:
 			if (ImGui::Button("Open SCL File##3"))
 			{
 				requestStateFile(kStateKeys[kStateFileSCL3]);
-				clearIncompatibleSclKbmStates(2);
 			}
 			
 			
 			if (ImGui::Button("Open KBM File##3"))
 			{
 				requestStateFile(kStateKeys[kStateFileKBM3]);
-				clearIncompatibleSclKbmStates(2);
 			}
 			
 			ImGui::PushItemWidth(-1);
@@ -522,14 +500,12 @@ protected:
 			if (ImGui::Button("Open SCL File##2"))
 			{
 				requestStateFile(kStateKeys[kStateFileSCL2]);
-				clearIncompatibleSclKbmStates(1);
 			}
 			
 			
 			if (ImGui::Button("Open KBM File##2"))
 			{
 				requestStateFile(kStateKeys[kStateFileKBM2]);
-				clearIncompatibleSclKbmStates(1);
 			}
 			
 			ImGui::PushItemWidth(-1);
@@ -558,14 +534,12 @@ protected:
 			if (ImGui::Button("Open SCL File##4"))
 			{
 				requestStateFile(kStateKeys[kStateFileSCL4]);
-				clearIncompatibleSclKbmStates(3);
 			}
 			
 			
 			if (ImGui::Button("Open KBM File##4"))
 			{
 				requestStateFile(kStateKeys[kStateFileKBM4]);
-				clearIncompatibleSclKbmStates(3);
 			}
 			
 			ImGui::PushItemWidth(-1);
