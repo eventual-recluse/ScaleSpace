@@ -1736,7 +1736,7 @@ namespace ImWidgets {
 		ImGui::ItemSize( handle_y_bb );
 		ImGui::ItemAdd( handle_y_bb, ImGui::GetID( "##HandleY" ), NULL, 0 );
 		pressed = ImGui::ButtonBehavior( handle_y_bb, ImGui::GetID( "##HandleY" ), &hovered, &held );
-		if (hovered && held)
+		if (held)
 		{
 			ImVec2 const vCursorPosLocal = ImGui::GetMousePos() - oRect.Min;
 
