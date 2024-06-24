@@ -52,7 +52,7 @@ public:
           fResizeHandle(this)
     {
         setGeometryConstraints(DISTRHO_UI_DEFAULT_WIDTH, DISTRHO_UI_DEFAULT_HEIGHT, true);
-        
+        setWidth(DISTRHO_UI_DEFAULT_WIDTH); // Fix for GUI display issue on mac
         // hide handle if UI is resizable
         if (isResizable())
             fResizeHandle.hide();
@@ -366,8 +366,9 @@ protected:
         ImGui::SetNextWindowPos(ImVec2(margin, margin));
         ImGui::SetNextWindowSize(ImVec2(width - 2 * margin, height - 2 * margin));
 
-        if (ImGui::Begin("ScaleSpace", nullptr, ImGuiWindowFlags_NoResize|ImGuiWindowFlags_NoCollapse|ImGuiWindowFlags_NoTitleBar))
+        if (ImGui::Begin("ScaleSpace", nullptr, ImGuiWindowFlags_NoResize|ImGuiWindowFlags_NoCollapse|ImGuiWindowFlags_NoTitleBar|ImGuiWindowFlags_NoScrollWithMouse|ImGuiWindowFlags_NoScrollbar))
         {
+			ImGui::SetScrollY(0);
 			ImGui::BeginChild("title pane", ImVec2(0, ImGui::GetFontSize() * 3));
             
             ImGui::PushFont(brunoAceSCFont);

@@ -10,7 +10,9 @@ Each of the four scales can be set by loading a either a Scala scale file (.scl)
 
 The four corners of the XY slider represent each of the four scales, for example, moving the slider to the top left corner will set the current scale to Scale 1, and moving it to the bottom right corner will set the current scale to Scale 4. Different positions within the square will set the current scale to a different weighted average of the four scales.
 
-To use this plugin, you will need Scala scale files (.scl) and / or keymapping files (.kbm).
+# Notes
+
+To use these plugins, you will need Scala scale files (.scl) and / or keymapping files (.kbm). You will also need to install [libMTS.](https://github.com/ODDSound/MTS-ESP)
 
 There is a large collection of .scl files at the [Scala Scale Archive.](https://huygens-fokker.org/microtonality/scales.html)
 
