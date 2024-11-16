@@ -10,6 +10,8 @@ Each of the four scales can be set by loading a either a Scala scale file (.scl)
 
 The four corners of the XY slider represent each of the four scales, for example, moving the slider to the top left corner will set the current scale to Scale 1, and moving it to the bottom right corner will set the current scale to Scale 4. Different positions within the square will set the current scale to a different weighted average of the four scales.
 
+The current scale can be saved as a .scl and .kbm pair by pressing the EXPORT button. To allow for any scale, the .scl file defines every MIDI note from 0 to 127 as a difference in cents from the reference note frequency. The .scl assumes that the reference note will be MIDI note 60, so the first listed pitch difference is assumed to be for MIDI note 61. The .kbm file sets the reference frequency at MIDI note 60, using the frequency of MIDI note 60 in the current scale. The .kbm file also sets key-for-key mapping. **NOTE: Attempting to overwrite either the .scl or .kbm will overwrite both files, as they are saved as a pair.**
+
 # Notes
 
 To use these plugins, you will need Scala scale files (.scl) and / or keymapping files (.kbm). You will also need to install [libMTS.](https://github.com/ODDSound/MTS-ESP)

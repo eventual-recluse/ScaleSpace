@@ -24,7 +24,8 @@ enum States {
     kStateFileKBM2 = 5,
     kStateFileKBM3 = 6,
     kStateFileKBM4 = 7,
-    kStateCount    = 8
+    kStateFileSavePath = 8,
+    kStateCount    = 9
 };
 
 static const std::array<std::pair<float, float>, kParameterCount> controlLimits =

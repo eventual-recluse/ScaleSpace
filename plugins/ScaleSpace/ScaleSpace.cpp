@@ -14,6 +14,8 @@
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#include <fstream>
+#include <sstream>
 #include "DistrhoPlugin.hpp"
 #include "ScaleSpaceControls.hpp"
 #include "Tunings.h"
@@ -211,6 +213,10 @@ protected:
             state.key = "kbm_file_4";
             state.label = "KBM File 4";
             break;
+        case kStateFileSavePath:
+            state.key = "file_save_path";
+            state.label = "File Save Path";
+            break;
         }
 
         state.hints = kStateIsFilenamePath;
@@ -278,6 +284,10 @@ protected:
 	    {
             loadKbm(tuning4, value);
         }
+        else if (std::strcmp(key, "file_save_path") == 0)
+	    {
+            saveScale(value);
+        }
     }
     
     void loadScl(Tunings::Tuning & tn, const char* value)
@@ -331,6 +341,88 @@ protected:
 			auto k = Tunings::Tuning().keyboardMapping;
 			tn = Tunings::Tuning(s, k);
 			//d_stdout("ScaleSpace: tuning kbm reset");
+		}
+	}
+	
+	void saveScale(const char* value)
+	{
+		// Use DPF's String to check for valid path
+		String filename_path(value);
+		// Otherwise we'll use a std::string for everything else
+		std::string scl_save_path = value;
+		std::string kbm_save_path = value;
+		
+		if (filename_path.isNotEmpty())
+		{
+			if (filename_path.endsWith(".scl") or filename_path.endsWith(".kbm"))
+			{
+				scl_save_path = scl_save_path.substr(0, scl_save_path.length() - 4);
+				kbm_save_path = kbm_save_path.substr(0, kbm_save_path.length() - 4);
+			}
+			
+			scl_save_path.append(".scl");
+			kbm_save_path.append(".kbm");
+			std::string scl_basename = scl_save_path.substr(scl_save_path.find_last_of("/\\") +1);
+			std::string kbm_basename = kbm_save_path.substr(kbm_save_path.find_last_of("/\\") +1);
+				 
+			std::ofstream savefileSCL;
+			savefileSCL.open(scl_save_path, std::ios::trunc);
+			if (savefileSCL.is_open())
+			{
+				std::stringstream textStream;
+				
+				textStream << "! " << scl_basename << "\n";
+				textStream << "!" << "\n";
+				textStream << scl_basename << " exported from ScaleSpace" << "\n";
+				textStream << " 128" << "\n";
+				textStream << "!" << "\n";
+				for (int i = 61; i < 128; i++)
+				{
+					// Formula for difference in cents between two frequencies is 1200 * log2(frequency1 / frequency2)
+					// If frequency1 is larger than frequency2, the difference will be positive
+					float cents = 1200 * std::log2(target_frequencies_in_hz[i] / target_frequencies_in_hz[60]); 
+					textStream << " " << std::to_string(cents) << "\n";
+				}
+				
+				for (int i = 0; i < 61; i++)
+				{
+					float cents = 1200 * std::log2(target_frequencies_in_hz[i] / target_frequencies_in_hz[60]); 
+					textStream << " " << std::to_string(cents) << "\n";
+				}
+				
+				savefileSCL << textStream.str();
+				
+				savefileSCL.close();
+			}
+			
+			std::ofstream savefileKBM;
+			savefileKBM.open(kbm_save_path, std::ios::trunc);
+			if (savefileKBM.is_open())
+			{
+				std::stringstream textStream;
+				
+				textStream << "! " << kbm_basename << "\n";
+				textStream << "! " << "Key-for-key mapping with reference frequency at MIDI note 60" << "\n";
+				textStream << "! " << "Exported from ScaleSpace" << "\n";
+				textStream << "! " << "Size:" << "\n";
+				textStream << "0" << "\n";
+				textStream << "! " << "First MIDI note number to retune:" << "\n";
+				textStream << "0" << "\n";
+				textStream << "! " << "Last MIDI note number to retune:" << "\n";
+				textStream << "127" << "\n";
+				textStream << "! " << "Middle note where the first entry of the mapping is mapped to:" << "\n";
+				textStream << "60" << "\n";
+				textStream << "! " << "Reference note for which frequency is given:" << "\n";
+				textStream << "60" << "\n";
+				textStream << "! " << "Frequency to tune the above note to (floating point e.g. 440.0):" << "\n";
+				textStream << std::to_string(static_cast<float>(target_frequencies_in_hz[60])) << "\n";
+				textStream << "! " << "Scale degree to consider as formal octave:" << "\n";
+				textStream << "127" << "\n";
+				
+				savefileKBM << textStream.str();
+				
+				savefileKBM.close();
+			}
 		}
 	}
 
